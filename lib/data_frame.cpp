@@ -6,7 +6,6 @@
 #include "../include/data_frame.hpp"
 #include "../util/utils.hpp"
 
-// TODO
 pd::Data_frame::Data_frame(const std::string path)
 {
 	// open file

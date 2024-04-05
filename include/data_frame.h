@@ -20,7 +20,7 @@ namespace pd {
 		std::vector<std::variant<int, std::string, double>> operator[](std::size_t index);
 
 	private:
-		std::unordered_map<std::string, std::vector<std::string>> m_matrix;
-		std::vector<std::string> m_cols;
+		std::unordered_map<std::string, std::vector<std::string>> matrix_;
+		std::vector<std::string> cols_;
 	};
 }

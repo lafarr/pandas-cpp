@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include "../include/data_frame.hpp"
+#include "../include/data_frame.h"
 #include "../util/utils.hpp"
 
 pd::Data_frame::Data_frame(const std::string path)
@@ -22,9 +22,9 @@ pd::Data_frame::Data_frame(const std::string path)
 	// read column names
 	std::string line;
 	if (std::getline(file_reader, line)) {
-		m_cols = pd::utils::split(line, ',');
-		for (std::string &col: m_cols) {
-			m_matrix[col] = std::vector<std::string>{};
+		cols_ = pd::utils::split(line, ',');
+		for (std::string &col: cols_) {
+			matrix_[col] = std::vector<std::string>{};
 		}
 	}
 
@@ -32,7 +32,7 @@ pd::Data_frame::Data_frame(const std::string path)
 	while (std::getline(file_reader, line)) {
 		std::vector<std::string> tokens = pd::utils::split(line, ',');
 		for (int i = 0; i < tokens.size(); ++i) {
-			m_matrix.at(m_cols[i]).push_back(tokens[i]);
+			matrix_.at(cols_[i]).push_back(tokens[i]);
 		}
 	}
 }
@@ -41,7 +41,7 @@ std::vector<std::variant<int, std::string, double>> pd::Data_frame::get_column_b
 {
 	std::vector<std::variant<int, std::string, double>> vec{};
 	try {
-		std::transform(m_matrix.at(columnName).begin(), m_matrix.at(columnName).end(), std::back_inserter(vec),
+		std::transform(matrix_.at(columnName).begin(), matrix_.at(columnName).end(), std::back_inserter(vec),
 					   pd::utils::convert_to_proper_type);
 	}
 	catch (std::out_of_range &ex) {
@@ -55,7 +55,7 @@ std::vector<std::variant<int, std::string, double>> pd::Data_frame::get_column_b
 	std::vector<std::variant<int, std::string, double>> vec{};
 	std::vector<std::string> col;
 	try {
-		col = m_matrix.at(m_cols[index]);
+		col = matrix_.at(cols_[index]);
 	}
 	catch (std::out_of_range &ex) {
 		throw ex;
@@ -67,8 +67,8 @@ std::vector<std::variant<int, std::string, double>> pd::Data_frame::get_column_b
 std::vector<std::variant<int, std::string, double>> pd::Data_frame::get_row(std::size_t index)
 {
 	std::vector<std::variant<int, std::string, double>> vec{};
-	for (std::string &col_name: m_cols) {
-		vec.push_back(m_matrix.at(col_name)[index]);
+	for (std::string &col_name: cols_) {
+		vec.push_back(matrix_.at(col_name)[index]);
 	}
 	for (auto it = vec.begin(); it != vec.end(); ++it) {
 		*it = pd::utils::convert_to_proper_type(std::get<std::string>(*it));

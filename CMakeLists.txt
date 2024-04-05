@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD)
 set(CMAKE_CXXFLAGS "-std=c++20 -O3")
 # add_library(pandas lib/main.cpp)
 add_executable(pandas lib/main.cpp
-        include/data_frame.hpp
+        include/data_frame.h
         util/utils.hpp
         lib/data_frame.cpp
         include/pandas.hpp

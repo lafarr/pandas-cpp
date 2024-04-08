@@ -30,7 +30,7 @@ std::vector<std::string> pd::utils::split(const std::string str, const char sepa
 	return tokens;
 }
 
-bool pd::utils::is_int(std::string str)
+bool pd::utils::IsInt(std::string str)
 {
 	try {
 		return std::to_string(std::stoi(str)) == str;
@@ -39,7 +39,7 @@ bool pd::utils::is_int(std::string str)
 	}
 }
 
-bool pd::utils::is_float(std::string str)
+bool pd::utils::IsFloat(std::string str)
 {
 	try {
 		return std::to_string(std::stof(str)) == str;
@@ -48,12 +48,12 @@ bool pd::utils::is_float(std::string str)
 	}
 }
 
-std::variant<int, std::string, double> pd::utils::convert_to_proper_type(std::string str)
+std::variant<int, std::string, double> pd::utils::ConvertToProperType(std::string str)
 {
-	if (pd::utils::is_int(str)) {
+	if (pd::utils::IsInt(str)) {
 		return std::stoi(str);
 	}
-	else if (pd::utils::is_float(str)) {
+	else if (pd::utils::IsFloat(str)) {
 		return std::stof(str);
 	}
 	return str;

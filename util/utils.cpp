@@ -3,34 +3,32 @@
 #include <stdexcept>
 #include "utils.hpp"
 
-std::vector<std::string> pd::utils::split(const std::string str, const char separator)
+std::vector<std::string> pd::utils::split(const std::string &str, const char separator)
 {
 	// Find the first appearance of separator in str, and if it isn't present,
 	// return str
 	std::vector<std::string> tokens{};
-	std::string str_copy = str;
-	int index_of_sep = str_copy.find(separator);
-	if (index_of_sep == std::string::npos) {
+	std::size_t indexOfSeparator = str.find(separator);
+	if (indexOfSeparator == std::string::npos) {
 		return std::vector{str};
 	}
 
 	// Keep finding the next index of separator, and then add a substring of
 	// the last found position of [separator + 1, next separator position)
-	int curr_index = 0;
-	while (index_of_sep != std::string::npos) {
-		tokens.push_back(str.substr(curr_index, index_of_sep - curr_index));
-		curr_index = index_of_sep + 1;
-		str_copy = str.substr(curr_index);
-		index_of_sep = str.find(separator, curr_index);
+	std::size_t currentIndex = 0;
+	while (indexOfSeparator != std::string::npos) {
+		tokens.push_back(str.substr(currentIndex, indexOfSeparator - currentIndex));
+        currentIndex = indexOfSeparator + 1;
+        indexOfSeparator = str.find(separator, currentIndex);
 		// To get the last token
-		if (index_of_sep == std::string::npos && ((index_of_sep + 1) < str.size())) {
-			tokens.push_back(str.substr(curr_index, str.size()));
+		if (indexOfSeparator == std::string::npos && ((indexOfSeparator + 1) < str.size())) {
+			tokens.push_back(str.substr(currentIndex, str.size()));
 		}
 	}
 	return tokens;
 }
 
-bool pd::utils::IsInt(std::string str)
+bool pd::utils::IsInt(const std::string &str)
 {
 	try {
 		return std::to_string(std::stoi(str)) == str;
@@ -39,7 +37,7 @@ bool pd::utils::IsInt(std::string str)
 	}
 }
 
-bool pd::utils::IsFloat(std::string str)
+bool pd::utils::IsFloat(const std::string &str)
 {
 	try {
 		return std::to_string(std::stof(str)) == str;

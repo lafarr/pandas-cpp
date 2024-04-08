@@ -5,7 +5,7 @@
 #include <string>
 
 namespace pd {
-	pd::DataFrame ReadCsv(std::string path);
+    pd::DataFrame ReadCsv(const std::string &path);
 }
 
 #endif

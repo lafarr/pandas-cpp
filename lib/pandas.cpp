@@ -1,7 +1,6 @@
 #include "../include/pandas.h"
-#include "../include/data_frame.h"
 
-pd::DataFrame pd::ReadCsv(std::string path)
+pd::DataFrame pd::ReadCsv(const std::string &path)
 {
-	return pd::DataFrame{path};
+    return pd::DataFrame{path};
 }
